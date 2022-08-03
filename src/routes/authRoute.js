@@ -7,9 +7,15 @@ const authRoutes = Router();
 
 authRoutes.post(
   "/signup",
-  authMiddleware.validateBody,
+  authMiddleware.validateSignUpBody,
   authMiddleware.checkEmailAlreadyExist,
   authController.signUp
+);
+
+authRoutes.post(
+  "/signin",
+  authMiddleware.validateSignInBody,
+  authMiddleware.checkPasswordByEmail
 );
 
 export { authRoutes };
