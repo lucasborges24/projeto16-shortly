@@ -13,8 +13,8 @@ export const getEmailByEmail = () => {
 
 export const insertInUsers = () => {
   const query = `--sql
-        INSERT INTO users
-            ("name", "email", "password")
+        INSERT INTO
+            users ("name", "email", "password")
         VALUES
             ($1, $2, $3);        
     `;
