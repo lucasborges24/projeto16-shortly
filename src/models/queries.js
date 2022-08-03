@@ -20,3 +20,15 @@ export const insertInUsers = () => {
     `;
   return query;
 };
+
+export const getPasswordByEmail = () => {
+  const query = `--sql
+    SELECT
+        "password"
+    FROM
+        users
+    WHERE
+        email = $1;
+`;
+  return query;
+};
