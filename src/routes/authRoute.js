@@ -15,7 +15,8 @@ authRoutes.post(
 authRoutes.post(
   "/signin",
   authMiddleware.validateSignInBody,
-  authMiddleware.checkPasswordByEmail
+  authMiddleware.checkPasswordByEmail,
+  authController.signIn
 );
 
 export { authRoutes };
