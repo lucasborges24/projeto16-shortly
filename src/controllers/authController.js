@@ -21,8 +21,17 @@ export const signUp = async (req, res) => {
 
   try {
     await authModel.insertNewUser(user);
-    res.sendStatus(201)
+    res.sendStatus(201);
   } catch (error) {
-    res.sendStatus(500)
+    res.sendStatus(500);
   }
+};
+
+export const signIn = async (req, res) => {
+  const { email } = res.locals.user;
+  const data = { email };
+  const secretKey = process.env.JWT_SECRET;
+  const token = jwt.sign(data, secretKey, jwtExpire)
+
+  res.send(token)
 };
