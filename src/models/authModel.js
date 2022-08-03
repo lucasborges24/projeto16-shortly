@@ -20,9 +20,48 @@ export const insertNewUser = async (user) => {
 };
 
 export const getPasswordByEmail = async (email) => {
-    const {rows: passwordCrypt} = await connection.query(queries.getPasswordByEmail(), [email])
-    return passwordCrypt[0]?.password;
-}
+  const { rows: passwordCrypt } = await connection.query(
+    queries.getPasswordByEmail(),
+    [email]
+  );
+  return passwordCrypt[0]?.password;
+};
+
+export const getUserByEmail = async (email) => {
+  const { rows: user } = await connection.query(queries.getUserByEmail(), [
+    email,
+  ]);
+  return user[0];
+};
+
+export const insertSession = async (userId) => {
+  const inserted = await connection.query(queries.insertSessionWithoutToken(), [
+    userId,
+  ]);
+  if (inserted) {
+    return true;
+  }
+  return false;
+};
+
+export const updateSession = async (userId, token) => {
+  const updated = await connection.query(queries.updateSession(), [
+    token,
+    userId,
+  ]);
+  if (updated) {
+    return true;
+  }
+  return false;
+};
+
+export const selectSessionByUserId = async (userId) => {
+  const { rows: session } = await connection.query(
+    queries.getSessionByUserId(),
+    [userId]
+  );
+  return session[0];
+};
 
 // SCHEMA
 
