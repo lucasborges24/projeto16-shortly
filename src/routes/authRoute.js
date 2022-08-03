@@ -1,12 +1,15 @@
-import {Router} from "express";
+import { Router } from "express";
 
-// import { authMiddleware } from "../middlewares/index.js";
-// import { authController } from "../controllers/index.js";
+import { authMiddleware } from "../middlewares/index.js";
+import { authController } from "../controllers/index.js";
 
 const authRoutes = Router();
 
-// authRoutes.get('/login', 'somefunction')
+authRoutes.post(
+  "/signup",
+  authMiddleware.validateBody,
+  authMiddleware.checkEmailAlreadyExist,
+  authController.signUp
+);
 
-export {
-    authRoutes
-}
+export { authRoutes };
