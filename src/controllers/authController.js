@@ -1,5 +1,14 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
 import { authModel } from "../models/index.js";
+
+dotenv.config();
+const EXPIRE_TIME = 24 * 60 * 60; // 1 day
+const jwtExpire = {
+    expiresIn: EXPIRE_TIME
+}
 
 export const signUp = async (req, res) => {
   const { name, email, password } = res.locals.newUser;
