@@ -7,8 +7,8 @@ import { authModel } from "../models/index.js";
 dotenv.config();
 const EXPIRE_TIME = 24 * 60 * 60; // 1 day
 const jwtExpire = {
-    expiresIn: EXPIRE_TIME
-}
+  expiresIn: EXPIRE_TIME,
+};
 
 export const signUp = async (req, res) => {
   const { name, email, password } = res.locals.newUser;
@@ -21,7 +21,9 @@ export const signUp = async (req, res) => {
 
   try {
     await authModel.insertNewUser(user);
-    res.sendStatus(201);
+    const {id} = await authModel.getUserByEmail(email);;
+    await authModel.insertSession(id);
+    res.sendStatus(201)
   } catch (error) {
     res.sendStatus(500);
   }
