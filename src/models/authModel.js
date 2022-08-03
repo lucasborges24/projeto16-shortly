@@ -19,6 +19,11 @@ export const insertNewUser = async (user) => {
   await connection.query(queries.insertInUsers(), [name, email, password]);
 };
 
+export const getPasswordByEmail = async (email) => {
+    const {rows: passwordCrypt} = await connection.query(queries.getPasswordByEmail(), [email])
+    return passwordCrypt[0]?.password;
+}
+
 // SCHEMA
 
 export const signupSchema = joi.object({
