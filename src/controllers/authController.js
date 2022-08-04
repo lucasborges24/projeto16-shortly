@@ -21,9 +21,7 @@ export const signUp = async (req, res) => {
 
   try {
     await authModel.insertNewUser(user);
-    const {id} = await authModel.getUserByEmail(email);;
-    await authModel.insertSession(id);
-    res.sendStatus(201)
+    res.sendStatus(201);
   } catch (error) {
     res.sendStatus(500);
   }
@@ -34,28 +32,11 @@ export const signIn = async (req, res) => {
   try {
     const user = await authModel.getUserByEmail(email);
     const { id: userId } = user;
-    const session = await authModel.selectSessionByUserId(userId);
-    const tokenIsValid = jwtVerification(session);
-    if (tokenIsValid) {
-      res.send(session.token);
-    } else {
-      const data = { sessionId: session.id };
-      const secretKey = process.env.JWT_SECRET;
-      const newToken = jwt.sign(data, secretKey, jwtExpire);
-      await authModel.updateSession(session.userId, newToken);
-      res.send(newToken);
-    }
+    const data = { userId };
+    const { JWT_SECRET } = process.env;
+    const token = jwt.sign(data, JWT_SECRET, jwtExpire);
+    res.status(200).send(token);
   } catch (error) {
-    res.sendStatus(500);
-  }
-};
-
-const jwtVerification = (session) => {
-  const { token } = session;
-  try {
-    const { sessionId } = jwt.verify(token, process.env.JWT_SECRET);
-    return sessionId;
-  } catch (error) {
-    return false;
+    res.status(500).send(error);
   }
 };
