@@ -14,3 +14,12 @@ export const urlSchema = joi.object({
     )
     .required(),
 });
+
+export const tokenSchema = joi
+  .object({
+    authorization: joi
+      .string()
+      .pattern(/^Bearer .+$/)
+      .required(),
+  })
+  .unknown(true);
