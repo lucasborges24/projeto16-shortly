@@ -23,14 +23,21 @@ export const validateUrlBody = (req, res, next) => {
 };
 
 export const validateHeader = (req, res, next) => {
-    const headerValidation = urlModel.tokenSchema.validate(req.headers)
-    if (headerValidation.error) {
-        return res.status(401).send(`Invalid token: ${headerValidation.error.message}`)
-    }
+  const headerValidation = urlModel.tokenSchema.validate(req.headers);
+  if (headerValidation.error) {
+    return res
+      .status(401)
+      .send(`Invalid token: ${headerValidation.error.message}`);
+  }
 
-    const token = {
-        token: headerValidation.value.authorization.split(" ")[1]
-    }
+  const token = {
+    token: headerValidation.value.authorization.split(" ")[1],
+  };
+
+  res.locals.token = token;
+  next();
+  return true;
+};
 
 export const checkTokenBelongsSomeUser = (req, res, next) => {
   const { token } = res.locals.token;
