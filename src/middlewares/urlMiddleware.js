@@ -1,4 +1,9 @@
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+
 import { urlModel } from "../models/index.js";
+
+dotenv.config();
 
 export const validateUrlBody = (req, res, next) => {
   const validate = urlModel.urlSchema.validate(req.body);
@@ -27,7 +32,18 @@ export const validateHeader = (req, res, next) => {
         token: headerValidation.value.authorization.split(" ")[1]
     }
 
-    res.locals.token = token
+export const checkTokenBelongsSomeUser = (req, res, next) => {
+  const { token } = res.locals.token;
+  const { JWT_SECRET } = process.env;
+
+  try {
+    const { userId } = jwt.verify(token, JWT_SECRET);
+    res.locals.id = userId;
     next();
     return true;
-}
+  } catch (error) {
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
+  }
+};
