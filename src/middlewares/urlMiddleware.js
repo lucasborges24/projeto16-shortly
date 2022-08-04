@@ -3,7 +3,9 @@ import { urlModel } from "../models/index.js";
 export const validateUrlBody = (req, res, next) => {
   const validate = urlModel.urlSchema.validate(req.body);
   if (validate.error) {
-    return res.status(422).send(`Some error with JSON body: ${validate.error.message}`);
+    return res
+      .status(422)
+      .send(`Some error with JSON body: ${validate.error.message}`);
   }
 
   const url = {
