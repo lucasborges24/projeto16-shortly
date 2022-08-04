@@ -5,4 +5,6 @@ import { urlController } from "../controllers/index.js";
 
 const urlRoutes = Router();
 
+urlRoutes.post("/urls/shorten", urlMiddleware.validateUrlBody)
+
 export { urlRoutes };
