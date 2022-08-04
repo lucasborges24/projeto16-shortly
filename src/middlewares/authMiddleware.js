@@ -7,7 +7,7 @@ export const checkEmailAlreadyExist = async (req, res, next) => {
   const { email } = res.locals.newUser;
   const emailExists = await authModel.emailAlreadyExists(email);
   if (emailExists) {
-    return res.sendStatus(409);
+    return res.status(409).send("Email already exists!");
   }
   next();
   return true;

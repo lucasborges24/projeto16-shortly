@@ -34,35 +34,6 @@ export const getUserByEmail = async (email) => {
   return user[0];
 };
 
-export const insertSession = async (userId) => {
-  const inserted = await connection.query(queries.insertSessionWithoutToken(), [
-    userId,
-  ]);
-  if (inserted) {
-    return true;
-  }
-  return false;
-};
-
-export const updateSession = async (userId, token) => {
-  const updated = await connection.query(queries.updateSession(), [
-    token,
-    userId,
-  ]);
-  if (updated) {
-    return true;
-  }
-  return false;
-};
-
-export const selectSessionByUserId = async (userId) => {
-  const { rows: session } = await connection.query(
-    queries.getSessionByUserId(),
-    [userId]
-  );
-  return session[0];
-};
-
 // SCHEMA
 
 export const signupSchema = joi.object({
