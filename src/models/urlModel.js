@@ -4,6 +4,7 @@ import { queries } from "./index.js";
 
 // DATABASE
 
+
 // SCHEMA
 
 export const urlSchema = joi.object({
