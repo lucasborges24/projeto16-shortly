@@ -21,9 +21,11 @@ export const signUp = async (req, res) => {
 
   try {
     await authModel.insertNewUser(user);
-    res.sendStatus(201);
+    res.status(201).send("Customer registered!");
   } catch (error) {
-    res.sendStatus(500);
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
   }
 };
 
@@ -37,6 +39,8 @@ export const signIn = async (req, res) => {
     const token = jwt.sign(data, JWT_SECRET, jwtExpire);
     res.status(200).send(token);
   } catch (error) {
-    res.status(500).send(error);
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
   }
 };
