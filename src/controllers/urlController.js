@@ -14,9 +14,9 @@ export const postShortUrl = async (req, res) => {
   };
 
   try {
-    const urlIdAlreadyExists = await checkUrlAlreadyPosted(userId, url);
-    if (urlIdAlreadyExists) {
-      return res.status(409).send("Url Already Registered.");
+    const shortUrlAlreadyExists = await checkUrlAlreadyPosted(userId, url);
+    if (shortUrlAlreadyExists) {
+      return res.status(201).send({ shortUrl: shortUrlAlreadyExists });
     }
 
     await urlModel.insertInUrls(urlObject);
