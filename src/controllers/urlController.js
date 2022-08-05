@@ -2,10 +2,12 @@ import { nanoid } from "nanoid";
 
 import { urlModel } from "../models/index.js";
 
+export const NANOID_PARAM = 10;
+
 export const postShortUrl = async (req, res) => {
   const userId = res.locals.id;
   const { url } = res.locals.url;
-  const shortUrl = nanoid(10);
+  const shortUrl = nanoid(NANOID_PARAM);
   const urlObject = {
     url,
     shortUrl,
