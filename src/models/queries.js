@@ -45,3 +45,49 @@ export const getUserByEmail = () => {
 
   return query;
 };
+
+export const insertUrl = () => {
+  const query = `--sql
+    INSERT INTO
+      "urls" ("url", "shortUrl")
+    VALUES
+      ($1, $2);
+  `;
+  return query;
+};
+
+export const getUrlIdbyshortUrl = () => {
+  const query = `--sql
+    SELECT
+      id
+    FROM
+      urls
+    WHERE
+      "shortUrl" = $1;
+  `;
+  return query;
+};
+
+export const insertUrlsUsers = () => {
+  const query = `--sql
+    INSERT INTO
+      "urlsUsers" ("urlId", "userid")
+    VALUES
+      ($1, $2);
+  `;
+  return query;
+};
+
+export const getUrlsUsersIdByUserIdAndUrl = () => {
+  const query = `--sql
+  SELECT
+    "urlsUsers"."id"
+  FROM
+    "urlsUsers"
+    JOIN urls ON "urlsUsers"."urlId" = urls.id
+  WHERE
+    urls.url = $1
+    AND "urlsUsers"."userid" = $2;
+`;
+  return query;
+};
