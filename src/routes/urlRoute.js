@@ -13,4 +13,11 @@ urlRoutes.post(
   urlController.postShortUrl
 );
 
+urlRoutes.get(
+  "/urls/:id",
+  urlMiddleware.validateParamsId,
+  urlMiddleware.checkParamsIdbelongsSomeUrl,
+  urlController.getUrlById,
+);
+
 export { urlRoutes };
