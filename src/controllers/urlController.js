@@ -51,6 +51,19 @@ export const openShortUrl = async (req, res) => {
   }
 };
 
+export const deleteUrl = async (req, res) => {
+  const { urlId } = res.locals;
+  try {
+    await urlModel.deleteUrlsUsersByUrlId(urlId);
+    await urlModel.deleteUrlById(urlId);
+    res.status(204).send("Url deleted with sucess!");
+  } catch (error) {
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
+  }
+};
+
 const checkUrlAlreadyPosted = async (userId, url) => {
   const shortUrlExists = await urlModel.getshortUrlByUrlAndUserId(userId, url);
   return shortUrlExists;
