@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
 import { urlModel } from "../models/index.js";
+import { urlController } from "../controllers/index.js";
 
 dotenv.config();
 
@@ -80,6 +81,17 @@ export const checkParamsIdbelongsSomeUrl = async (req, res, next) => {
       .send(`Internal system error.\n More details: ${error.message}`);
   }
 
+  next();
+  return true;
+};
+
+export const validateParamsShortUrl = (req, res, next) => {
+  const { shortUrl } = req.params;
+  const invalidSize = shortUrl.length !== urlController.NANOID_PARAM;
+
+  if (invalidSize) return res.status(422).send("Invalid shortUrl sent!");
+
+  res.locals.shortUrl = shortUrl;
   next();
   return true;
 };
