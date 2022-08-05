@@ -95,3 +95,18 @@ export const validateParamsShortUrl = (req, res, next) => {
   next();
   return true;
 };
+
+export const checkParamsShortUrlExists = async (req, res, next) => {
+  const { shortUrl } = res.locals;
+
+  try {
+    const idExists = await urlModel.getUrlIdByShortUrl(shortUrl);
+    if (!idExists) return res.status(404).send("ShortUrl does not exist!");
+  } catch (error) {
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
+  }
+  next();
+  return true;
+};
