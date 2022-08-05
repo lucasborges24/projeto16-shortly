@@ -38,6 +38,14 @@ export const insertInUrlsUsers = async (urlId, userId) => {
   return false;
 };
 
+export const getUrlsById = async (id) => {
+    const { rows: url } = await connection.query(queries.getUrlById(), [id])
+    if (url && url.length !== 0) {
+        return url[0]
+    }
+    return false;
+}
+
 // SCHEMA
 
 export const urlSchema = joi.object({
