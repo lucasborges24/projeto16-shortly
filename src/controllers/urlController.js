@@ -35,6 +35,22 @@ export const getUrlById = (req, res) => {
   res.status(200).send(response);
 };
 
+export const openShortUrl = async (req, res) => {
+  const { shortUrl } = res.locals;
+  try {
+    const { visitCount, url } = await urlModel.getVisitsCountByShortUrl(
+      shortUrl
+    );
+    const addVisitCount = Number(visitCount) + 1;
+    await urlModel.updateVisitCountByShortUrl(addVisitCount, shortUrl);
+    res.redirect(url);
+  } catch (error) {
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
+  }
+};
+
 const checkUrlAlreadyPosted = async (userId, url) => {
   const urlIdExists = await urlModel.getUrlsUsersIdByUrlAndUserId(userId, url);
   return urlIdExists;
