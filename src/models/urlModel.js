@@ -81,7 +81,6 @@ export const getUserIdByUrlIdAndTokenId = async (urlId, tokenId) => {
 
 export const deleteUrlById = async (id) => {
   const deleted = await connection.query(queries.deleteUrl(), [id])
-  console.log(deleted);
   return deleted;
 }
 
