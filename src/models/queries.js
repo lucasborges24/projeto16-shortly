@@ -78,10 +78,10 @@ export const insertUrlsUsers = () => {
   return query;
 };
 
-export const getUrlsUsersIdByUserIdAndUrl = () => {
+export const getshortUrlByUserIdAndUrl = () => {
   const query = `--sql
   SELECT
-    "urlsUsers"."id"
+    urls."shortUrl"
   FROM
     "urlsUsers"
     JOIN urls ON "urlsUsers"."urlId" = urls.id
