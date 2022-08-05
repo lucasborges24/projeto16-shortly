@@ -28,6 +28,11 @@ export const postShortUrl = async (req, res) => {
   }
 };
 
+export const getUrlById = (req, res) => {
+  const { response } = res.locals;
+  res.status(200).send(response);
+};
+
 const checkUrlAlreadyPosted = async (userId, url) => {
   const urlIdExists = await urlModel.getUrlsUsersIdByUrlAndUserId(userId, url);
   return urlIdExists;
