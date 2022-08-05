@@ -110,3 +110,23 @@ export const checkParamsShortUrlExists = async (req, res, next) => {
   next();
   return true;
 };
+
+export const checkUserTokenBelongsToUrlOwner = async (req, res, next) => {
+  const userTokenId = res.locals.id;
+  const { urlId } = res.locals;
+  try {
+    const tokenIdIsValid = await urlModel.getUserIdByUrlIdAndTokenId(
+      urlId,
+      userTokenId
+    );
+    if (!tokenIdIsValid)
+      return res.status(401).send("Token does not belong to the url sent!");
+  } catch (error) {
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
+  }
+
+  next();
+  return true;
+};
