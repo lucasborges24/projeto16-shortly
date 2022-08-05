@@ -131,3 +131,37 @@ export const updateVisitCount = () => {
   return query;
 }
 
+export const getUserIdByUrlid = () => {
+  const query = `--sql
+  SELECT
+    "urlsUsers"."userid" as "userId"
+  FROM
+    urls
+    JOIN "urlsUsers" ON "urlsUsers"."urlId" = $1
+  WHERE
+    "urlsUsers"."userid" = $2
+  LIMIT
+    1;
+  `
+  return query;
+}
+
+export const deleteUrl = () => {
+  const query = `--sql
+  DELETE FROM
+      urls
+  WHERE
+      id = $1;
+  `
+  return query;
+}
+
+export const deleteUrlsUsers = () => {
+  const query = `--sql
+  DELETE FROM
+    "urlsUsers"
+  WHERE
+    "urlId" = $1;
+  `
+  return query;
+}
