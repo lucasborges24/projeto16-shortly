@@ -9,7 +9,8 @@ urlRoutes.post(
   "/urls/shorten",
   urlMiddleware.validateUrlBody,
   urlMiddleware.validateHeader,
-  urlMiddleware.checkTokenBelongsSomeUser
+  urlMiddleware.checkTokenBelongsSomeUser,
+  urlController.postShortUrl
 );
 
 export { urlRoutes };
