@@ -17,7 +17,14 @@ urlRoutes.get(
   "/urls/:id",
   urlMiddleware.validateParamsId,
   urlMiddleware.checkParamsIdbelongsSomeUrl,
-  urlController.getUrlById,
+  urlController.getUrlById
+);
+
+urlRoutes.get(
+  "/urls/open/:shortUrl",
+  urlMiddleware.validateParamsShortUrl,
+  urlMiddleware.checkParamsShortUrlExists,
+  urlController.openShortUrl
 );
 
 export { urlRoutes };
