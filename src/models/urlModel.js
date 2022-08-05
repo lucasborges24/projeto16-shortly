@@ -21,13 +21,13 @@ export const getUrlIdByShortUrl = async (shortUrl) => {
   return false;
 };
 
-export const getUrlsUsersIdByUrlAndUserId = async (userId, url) => {
-  const { rows: id } = await connection.query(
-    queries.getUrlsUsersIdByUserIdAndUrl(),
+export const getshortUrlByUrlAndUserId = async (userId, url) => {
+  const { rows: shortUrl } = await connection.query(
+    queries.getshortUrlByUserIdAndUrl(),
     [url, userId]
   );
-  if (id && id.length !== 0) {
-    return id[0].id;
+  if (shortUrl && shortUrl.length !== 0) {
+    return shortUrl[0].shortUrl;
   }
   return false;
 };
