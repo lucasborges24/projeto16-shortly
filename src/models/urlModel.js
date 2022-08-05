@@ -68,6 +68,28 @@ export const updateVisitCountByShortUrl = async (newVisitCount, shortUrl) => {
   return updated;
 };
 
+export const getUserIdByUrlIdAndTokenId = async (urlId, tokenId) => {
+  const { rows: userId } = await connection.query(queries.getUserIdByUrlid(), [
+    urlId,
+    tokenId,
+  ]);
+  if (userId && userId.length !== 0) {
+    return userId[0].userId;
+  }
+  return false;
+};
+
+export const deleteUrlById = async (id) => {
+  const deleted = await connection.query(queries.deleteUrl(), [id])
+  console.log(deleted);
+  return deleted;
+}
+
+export const deleteUrlsUsersByUrlId = async (urlId) => {
+  const deleted = await connection.query(queries.deleteUrlsUsers(), [urlId])
+  return deleted;
+}
+
 // SCHEMA
 
 export const urlSchema = joi.object({
