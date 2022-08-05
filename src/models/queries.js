@@ -102,6 +102,31 @@ export const getUrlById = () => {
       "urls"
   WHERE
       "id" = $1;
+  `;
+  return query;
+};
+
+export const getVisitCountByShortId = () => {
+  const query = `--sql
+  SELECT
+    "visitCount",
+    "url"
+  FROM
+    urls
+  WHERE
+    "shortUrl" = $1;
+  `;
+  return query;
+};
+
+export const updateVisitCount = () => {
+  const query = `--sql
+  UPDATE
+    urls
+  SET
+    "visitCount" = $1
+  WHERE
+    "shortUrl" = $2;
   `
   return query;
 }
