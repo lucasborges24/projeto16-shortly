@@ -27,4 +27,14 @@ urlRoutes.get(
   urlController.openShortUrl
 );
 
+urlRoutes.delete(
+  "/urls/:id",
+  urlMiddleware.validateParamsId,
+  urlMiddleware.validateHeader,
+  urlMiddleware.checkTokenBelongsSomeUser,
+  urlMiddleware.checkParamsIdbelongsSomeUrl,
+  urlMiddleware.checkUserTokenBelongsToUrlOwner,
+  urlController.deleteUrl
+);
+
 export { urlRoutes };
