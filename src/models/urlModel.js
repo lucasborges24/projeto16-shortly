@@ -22,7 +22,10 @@ export const getUrlIdByShortUrl = async (shortUrl) => {
 };
 
 export const getUrlsUsersIdByUrlAndUserId = async (userId, url) => {
-  const { rows: id } = await connection.query(queries.getUrlsUsersIdByUserIdAndUrl(), [url, userId]);
+  const { rows: id } = await connection.query(
+    queries.getUrlsUsersIdByUserIdAndUrl(),
+    [url, userId]
+  );
   if (id && id.length !== 0) {
     return id[0].id;
   }
