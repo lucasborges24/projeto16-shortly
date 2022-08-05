@@ -52,6 +52,6 @@ export const openShortUrl = async (req, res) => {
 };
 
 const checkUrlAlreadyPosted = async (userId, url) => {
-  const urlIdExists = await urlModel.getUrlsUsersIdByUrlAndUserId(userId, url);
-  return urlIdExists;
+  const shortUrlExists = await urlModel.getshortUrlByUrlAndUserId(userId, url);
+  return shortUrlExists;
 };
