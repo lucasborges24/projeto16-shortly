@@ -42,12 +42,31 @@ export const insertInUrlsUsers = async (urlId, userId) => {
 };
 
 export const getUrlsById = async (id) => {
-    const { rows: url } = await connection.query(queries.getUrlById(), [id])
-    if (url && url.length !== 0) {
-        return url[0]
-    }
-    return false;
-}
+  const { rows: url } = await connection.query(queries.getUrlById(), [id]);
+  if (url && url.length !== 0) {
+    return url[0];
+  }
+  return false;
+};
+
+export const getVisitsCountByShortUrl = async (shortUrl) => {
+  const { rows: sum } = await connection.query(
+    queries.getVisitCountByShortId(),
+    [shortUrl]
+  );
+  if (sum && sum.length !== 0) {
+    return sum[0];
+  }
+  return false;
+};
+
+export const updateVisitCountByShortUrl = async (newVisitCount, shortUrl) => {
+  const updated = await connection.query(queries.updateVisitCount(), [
+    newVisitCount,
+    shortUrl,
+  ]);
+  return updated;
+};
 
 // SCHEMA
 
