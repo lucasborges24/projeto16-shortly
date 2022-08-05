@@ -54,3 +54,32 @@ export const checkTokenBelongsSomeUser = (req, res, next) => {
       .send(`Internal system error.\n More details: ${error.message}`);
   }
 };
+
+export const validateParamsId = (req, res, next) => {
+  const id = Number(req.params.id);
+  const NotANumber = isNaN(id);
+  const isInteger = Number.isInteger(id);
+  if (NotANumber || !isInteger)
+    return res.status(404).send("id is not a integer number!");
+
+  res.locals.urlId = id;
+  next();
+  return true;
+};
+
+export const checkParamsIdbelongsSomeUrl = async (req, res, next) => {
+  const { urlId } = res.locals;
+  try {
+    const response = await urlModel.getUrlsById(urlId);
+    if (!response) return res.status(404).send("id doesn't belong any url!");
+
+    res.locals.response = response;
+  } catch (error) {
+    res
+      .status(500)
+      .send(`Internal system error.\n More details: ${error.message}`);
+  }
+
+  next();
+  return true;
+};
