@@ -91,3 +91,17 @@ export const getUrlsUsersIdByUserIdAndUrl = () => {
 `;
   return query;
 };
+
+export const getUrlById = () => {
+  const query = `--sql
+  SELECT
+      "id",
+      "url",
+      "shortUrl"
+  FROM
+      "urls"
+  WHERE
+      "id" = $1;
+  `
+  return query;
+}
