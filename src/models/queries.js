@@ -162,6 +162,27 @@ export const deleteUrlsUsers = () => {
     "urlsUsers"
   WHERE
     "urlId" = $1;
-  `
+  `;
   return query;
-}
+};
+
+export const getRanking = () => {
+  const query = `--sql
+  SELECT
+      users."id",
+      users."name",
+      COUNT(urls."visitCount") AS "linksCount",
+      SUM(urls."visitCount") AS "visitCount"
+  FROM
+      "urlsUsers"
+      JOIN "users" ON users.id = "urlsUsers"."userid"
+      JOIN "urls" ON "urls".id = "urlsUsers"."urlId"
+  GROUP BY
+      users."id",
+      users."name"
+  ORDER BY
+      "visitCount" DESC
+  LIMIT
+      10;`;
+  return query;
+};
