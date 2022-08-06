@@ -127,9 +127,9 @@ export const updateVisitCount = () => {
     "visitCount" = $1
   WHERE
     "shortUrl" = $2;
-  `
+  `;
   return query;
-}
+};
 
 export const getUserIdByUrlid = () => {
   const query = `--sql
@@ -142,9 +142,9 @@ export const getUserIdByUrlid = () => {
     "urlsUsers"."userid" = $2
   LIMIT
     1;
-  `
+  `;
   return query;
-}
+};
 
 export const deleteUrl = () => {
   const query = `--sql
@@ -152,9 +152,9 @@ export const deleteUrl = () => {
       urls
   WHERE
       id = $1;
-  `
+  `;
   return query;
-}
+};
 
 export const deleteUrlsUsers = () => {
   const query = `--sql
