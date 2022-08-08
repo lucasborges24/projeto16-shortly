@@ -175,8 +175,8 @@ export const getRanking = () => {
       SUM(urls."visitCount") AS "visitCount"
   FROM
       "urlsUsers"
-      JOIN "users" ON users.id = "urlsUsers"."userid"
-      JOIN "urls" ON "urls".id = "urlsUsers"."urlId"
+      JOIN "users" ON "users"."id" = "urlsUsers"."userid"
+      JOIN "urls" ON "urls"."id" = "urlsUsers"."urlId"
   GROUP BY
       users."id",
       users."name"
