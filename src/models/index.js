@@ -18,3 +18,4 @@ export * as queries from "./queries.js";
 export * as authModel from "./authModel.js";
 export * as urlModel from "./urlModel.js";
 export * as rankingModel from "./rankingModel.js";
+export * as userModel from "./userModel.js";

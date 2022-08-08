@@ -51,7 +51,7 @@ export const checkTokenBelongsSomeUser = (req, res, next) => {
     return true;
   } catch (error) {
     res
-      .status(500)
+      .status(404)
       .send(`Internal system error.\n More details: ${error.message}`);
   }
 };
