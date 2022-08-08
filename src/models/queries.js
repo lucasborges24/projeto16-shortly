@@ -171,8 +171,8 @@ export const getRanking = () => {
   SELECT
     users."id",
     users."name",
-    COALESCE(COUNT(urls."visitCount"), 0) AS "linksCount",
-    COALESCE(SUM(urls."visitCount"), 0) AS "visitCount"
+    COALESCE(COUNT(urls."visitCount")::int, 0) AS "linksCount",
+    COALESCE(SUM(urls."visitCount")::int, 0) AS "visitCount"
   FROM
     "users"
     LEFT JOIN "urlsUsers" ON "users"."id" = "urlsUsers"."userid"
