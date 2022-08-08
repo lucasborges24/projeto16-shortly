@@ -186,3 +186,35 @@ export const getRanking = () => {
       10;`;
   return query;
 };
+
+export const getUserUrls = () => {
+  const query = `--sql
+  SELECT
+      "users"."id",
+      "users"."name",
+      SUM(urls."visitCount") AS "visitCount",
+      json_agg(
+          json_build_object(
+              'id',
+              "urls"."id",
+              'shortUrl',
+              "urls"."shortUrl",
+              'url',
+              "urls"."url",
+              'visitCount',
+              "urls"."visitCount"
+          )
+      ) AS "shortenedUrls"
+  FROM
+      "urlsUsers"
+      JOIN users ON "urlsUsers"."userid" = "users"."id"
+      JOIN urls ON "urlsUsers"."urlId" = "urls"."id"
+  WHERE
+      users.id = $1
+  GROUP BY
+      "users"."id"
+  ORDER BY
+      "visitCount" DESC;
+  `;
+  return query;
+};
